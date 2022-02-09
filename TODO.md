@@ -1,3 +1,3 @@
--Rimuovere boilerplate
+-Implementare Routing
 -Stilare con Styled components.
 -Unit testing

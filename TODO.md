@@ -1,3 +1,5 @@
--Implementare Routing
+-Implementare Routing OK
+-Implement Dashboard with TDD
+-Responsiveness (Desktop first)
 -Stilare con Styled components.
 -Unit testing

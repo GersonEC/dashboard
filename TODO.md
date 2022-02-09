@@ -1,0 +1,3 @@
+-Rimuovere boilerplate
+-Stilare con Styled components.
+-Unit testing

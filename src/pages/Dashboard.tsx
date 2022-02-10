@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { RootState } from '../app/store';
-import ProductPreview from '../components/ProductCard';
+import ProductPreview from '../components/ProductPreview';
 import { fetchProductsAsync } from '../features/products/productsSlice';
 
 const Dashboard = () => {
@@ -48,6 +48,7 @@ const Wrapper = styled.div`
   height: 100vh;
 `;
 const Header = styled.header`
+  background: rgba(255, 239, 16, 0.3);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -98,9 +99,11 @@ const Body = styled.div`
   flex-wrap: wrap;
   justify-content: center;
   gap: 32px;
+  padding: 32px 0 0 32px;
   height: 85vh;
-  margin: 16px 32px;
-  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  width: 85vw;
+  margin: 0 32px;
+  border-bottom: 2px solid rgba(138, 138, 138, 0.3);
   border-radius: 8px;
   overflow: auto;
 `;

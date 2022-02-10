@@ -1,4 +1,12 @@
+import { Link } from 'react-router-dom';
 
 export const Login: React.FC = () => {
-  return <h1>Login Page</h1>
-}
+  return (
+    <div>
+      <h1>Login Page </h1>
+      <Link to='/products'>
+        <h3>Go to Dashboard</h3>
+      </Link>
+    </div>
+  );
+};

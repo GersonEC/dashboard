@@ -18,8 +18,6 @@ export default function ProductPreview({ product }: ProductPreviewProps) {
 const Wrapper = styled.div`
   display: flex;
   box-shadow: rgba(0, 0, 0, 0.255) 0px 2px 3px, rgba(0, 0, 0, 0.22) 0px 1px 1px;
-
-  /*border-bottom: 1px solid rgba(138, 138, 138, 0.3);*/
   justify-content: center;
   align-items: center;
   padding: 2rem;

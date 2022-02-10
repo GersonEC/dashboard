@@ -5,7 +5,7 @@ import { fetchProducts } from './productsApi';
 
 export interface ProductsState {
   productList: Product[];
-  status: 'idle' | 'loading' | 'failed';
+  status: 'idle' | 'loading' | 'failed' | 'success';
 }
 
 const initialState: ProductsState = {
@@ -31,7 +31,7 @@ export const productsSlice = createSlice({
         state.status = 'loading';
       })
       .addCase(fetchProductsAsync.fulfilled, (state: ProductsState, action) => {
-        state.status = 'idle';
+        state.status = 'success';
         state.productList = action.payload;
       });
   },

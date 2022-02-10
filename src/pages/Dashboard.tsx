@@ -1,6 +1,20 @@
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
+import { RootState } from '../app/store';
+import ProductPreview from '../components/ProductCard';
+import { fetchProductsAsync } from '../features/products/productsSlice';
 
 const Dashboard = () => {
+  const dispatch = useDispatch();
+  const productList = useSelector(
+    (state: RootState) => state.products.productList
+  );
+
+  useEffect(() => {
+    dispatch(fetchProductsAsync());
+  }, [dispatch]);
+
   return (
     <Wrapper>
       <Header>
@@ -17,7 +31,12 @@ const Dashboard = () => {
           <Item>Gattoir</Item>
           <Item>Trhtsasfasf</Item>
         </Nav>
-        <Body></Body>
+        <Body>
+          {productList &&
+            productList.map((item) => (
+              <ProductPreview key={item.id} product={item} />
+            ))}
+        </Body>
       </Main>
     </Wrapper>
   );
@@ -75,9 +94,14 @@ const Item = styled.p`
   }
 `;
 const Body = styled.div`
-  flex: 1;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 32px;
+  height: 85vh;
   margin: 16px 32px;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   border-radius: 8px;
+  overflow: auto;
 `;
 export { Dashboard };

@@ -1,23 +1,16 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Products } from './pages/Products';
-import { DashboardLayout } from './components/DashboardLayout';
 import { Login } from './pages/Login';
+import { Dogs } from './pages/Dogs';
 
-const Random = () => {
-  return (
-    <DashboardLayout>
-      <h1>RANDOMMMMMMMMMMMMMMMMM</h1>
-    </DashboardLayout>
-  );
-};
 const Routing = () => {
   return (
     <Router>
       <Routes>
         <Route path='/' element={<Login />} />
         <Route path='/products' element={<Products />} />
-        <Route path='/random' element={<Random />} />
+        <Route path='/dogs' element={<Dogs />} />
       </Routes>
     </Router>
   );

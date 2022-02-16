@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../app/store';
 import { DashboardLayout } from '../components/DashboardLayout';
-import ProductPreview from '../components/ProductPreview';
+import {ProductPreview} from '../components/ProductPreview';
 import { fetchProductsAsync } from '../features/products/productsSlice';
 
 export const Products: React.FC = () => {

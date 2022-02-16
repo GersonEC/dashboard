@@ -7,11 +7,16 @@ export const Nav: React.FC = () => {
       <Link to={'/products'}>
         <Item>Products</Item>
       </Link>
-      <Link to={'/random'}>
-        <Item>ASDFDSG</Item>
+      <Link to={'/dogs'}>
+        <Item>Dogs</Item>
       </Link>
-      <Item>Gattoir</Item>
-      <Item>Trhtsasfasf</Item>
+      <Item>Cats</Item>
+      <Item>Pokemons</Item>
+      <Item>Camps</Item>
+      <Item>Cocktails</Item>
+      <Item>Cities</Item>
+      <Item>Football teams</Item>
+      <Item>Food</Item>
     </Wrapper>
   );
 };

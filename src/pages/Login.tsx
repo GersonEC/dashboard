@@ -1,21 +1,29 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import FirebaseContext from '../auth/firebaseContext';
 
 export const Login: React.FC = () => {
   return (
-    <>
-      <Link to='/products'>
-        <span>Go to Dashboard</span>
-      </Link>
-      <Wrapper>
-        <FormWrapper>
-          <h3>Sign in</h3>
-          <Label>Email</Label>
-          <Label>Password</Label>
-          <Button>Sign in</Button>
-        </FormWrapper>
-      </Wrapper>
-    </>
+    <FirebaseContext.Consumer>
+      {(firebase) => {
+        return (
+          <>
+            <Link to='/products'>
+              <span>Go to Dashboard</span>
+            </Link>
+            <h1>I've access to firebase </h1>
+            <Wrapper>
+              <FormWrapper>
+                <h3>Sign in</h3>
+                <Label>Email</Label>
+                <Label>Password</Label>
+                <Button>Sign in</Button>
+              </FormWrapper>
+            </Wrapper>
+          </>
+        );
+      }}
+    </FirebaseContext.Consumer>
   );
 };
 

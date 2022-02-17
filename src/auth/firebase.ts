@@ -1,4 +1,11 @@
 import { initializeApp } from 'firebase/app';
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  onAuthStateChanged,
+  signOut,
+} from 'firebase/auth';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyCEQbgperki1cbdmD21o2VmM-ydCn_wzTw',
@@ -10,9 +17,48 @@ const firebaseConfig = {
 };
 
 class Firebase {
+  private auth;
+
   constructor() {
-    initializeApp(firebaseConfig);
+    const firebaseApp = initializeApp(firebaseConfig);
+    this.auth = getAuth(firebaseApp);
   }
+
+  createUser = async (email: string, password: string) => {
+    try {
+      const user = await createUserWithEmailAndPassword(
+        this.auth,
+        email,
+        password
+      );
+      return user;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  loginUser = async (email: string, password: string) => {
+    try {
+      const user = await signInWithEmailAndPassword(this.auth, email, password);
+      console.log({ user });
+      return user;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  signOut = async () => await signOut(this.auth);
+
+  monitorAuthState = async () => {
+    onAuthStateChanged(this.auth, (user) => {
+      if (user) {
+        console.log({ user });
+        //showApp
+      } else {
+        // not logged in
+      }
+    });
+  };
 }
 
 export default Firebase;

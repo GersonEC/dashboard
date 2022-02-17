@@ -1,9 +1,8 @@
 import { useContext, useState } from 'react';
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import FirebaseContext from '../auth/firebaseContext';
 
-export const Login: React.FC = () => {
+export const Signup: React.FC = () => {
   const firebase = useContext(FirebaseContext);
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
@@ -15,29 +14,23 @@ export const Login: React.FC = () => {
     setPassword(e.target.value);
 
   return (
-    <>
-      <Link to='/products'>
-        <span>Go to Dashboard</span>
-      </Link>
-      <h1>I've access to firebase {console.log(firebase)} </h1>
-      <Wrapper>
-        <FormWrapper>
-          <h3>Sign in</h3>
-          <Label htmlFor='email'>Email</Label>
-          <input name='email' value={email} onChange={handleEmail} />
-          <Label htmlFor='password'>Password</Label>
-          <input
-            name='password'
-            type='password'
-            value={password}
-            onChange={handlePassword}
-          />
-          <Button onClick={() => firebase!.loginUser(email, password)}>
-            Sign in
-          </Button>
-        </FormWrapper>
-      </Wrapper>
-    </>
+    <Wrapper>
+      <FormWrapper>
+        <h3>Sign up</h3>
+        <Label htmlFor='email'>Email</Label>
+        <input name='email' value={email} onChange={handleEmail} />
+        <Label htmlFor='password'>Password</Label>
+        <input
+          name='password'
+          type='password'
+          value={password}
+          onChange={handlePassword}
+        />
+        <Button onClick={() => firebase!.createUser(email, password)}>
+          Sign up
+        </Button>
+      </FormWrapper>
+    </Wrapper>
   );
 };
 

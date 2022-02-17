@@ -1,12 +1,17 @@
+import { useContext } from 'react';
 import styled from 'styled-components';
+import FirebaseContext from '../auth/firebaseContext';
 
 export const Header: React.FC = () => {
+  const firebase = useContext(FirebaseContext);
+
   return (
     <Wrapper>
       <Title>Dashboard</Title>
       <User>
         <Name>Gerson Enriquez</Name>
         <Role>Admin</Role>
+        <button onClick={() => firebase!.signOut()}>Sign Out</button>
       </User>
     </Wrapper>
   );

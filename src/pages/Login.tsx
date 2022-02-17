@@ -1,12 +1,17 @@
 import { useContext, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { RootState } from '../app/store';
 import FirebaseContext from '../auth/firebaseContext';
+import { loggedIn } from '../features/auth/authSlice';
 
 export const Login: React.FC = () => {
   const firebase = useContext(FirebaseContext);
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+  const dispatch = useDispatch();
+  const auth = useSelector((state: RootState) => state.auth);
 
   const handleEmail = (e: React.ChangeEvent<HTMLInputElement>) =>
     setEmail(e.target.value);
@@ -14,12 +19,21 @@ export const Login: React.FC = () => {
   const handlePassword = (e: React.ChangeEvent<HTMLInputElement>) =>
     setPassword(e.target.value);
 
+  const handleSignIn = async (email: string, password: string) => {
+    if (firebase) {
+      const user = await firebase.loginUser(email, password);
+      if (user) {
+        dispatch(loggedIn(user.user.email!));
+      }
+    }
+  };
+
+  console.log('Logged?: ', auth.logged);
   return (
     <>
       <Link to='/products'>
         <span>Go to Dashboard</span>
       </Link>
-      <h1>I've access to firebase {console.log(firebase)} </h1>
       <Wrapper>
         <FormWrapper>
           <h3>Sign in</h3>
@@ -32,9 +46,7 @@ export const Login: React.FC = () => {
             value={password}
             onChange={handlePassword}
           />
-          <Button onClick={() => firebase!.loginUser(email, password)}>
-            Sign in
-          </Button>
+          <Button onClick={() => handleSignIn(email, password)}>Sign in</Button>
         </FormWrapper>
       </Wrapper>
     </>

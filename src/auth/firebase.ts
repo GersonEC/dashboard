@@ -39,6 +39,7 @@ class Firebase {
 
   loginUser = async (email: string, password: string) => {
     try {
+      debugger;
       const user = await signInWithEmailAndPassword(this.auth, email, password);
       console.log({ user });
       return user;

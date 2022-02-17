@@ -1,3 +1,6 @@
+export interface User {
+  email: string;
+}
 export interface ProductCard {
   name: string;
   description: string;
@@ -17,12 +20,12 @@ export interface Product {
 export interface Dog {
   weight: {
     imperial: string;
-    metric: string
-  },
+    metric: string;
+  };
   height: {
     imperial: string;
-    metric: string
-  },
+    metric: string;
+  };
   id: number;
   name: string;
   bred_for: string;
@@ -35,9 +38,6 @@ export interface Dog {
     id: string;
     width: number;
     height: number;
-    url: string
-  }
+    url: string;
+  };
 }
-
-
-

@@ -3,9 +3,8 @@
 -Implement products feature OK
 -IMPLEMENTING ROUTING DASHBOARD OK
 -Stilare con Styled components. OK
+-Implement Login Page ok
 
--Implement Login Page
+- Implement Authorization
 
--Responsiveness (Desktop first)
--Theming
--Unit testing
+- Gestione Errori.

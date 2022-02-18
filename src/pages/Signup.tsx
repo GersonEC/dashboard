@@ -1,4 +1,5 @@
 import { useContext, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import FirebaseContext from '../auth/firebaseContext';
 
@@ -6,6 +7,7 @@ export const Signup: React.FC = () => {
   const firebase = useContext(FirebaseContext);
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+  const navigate = useNavigate();
 
   const handleEmail = (e: React.ChangeEvent<HTMLInputElement>) =>
     setEmail(e.target.value);
@@ -17,10 +19,12 @@ export const Signup: React.FC = () => {
     <Wrapper>
       <FormWrapper>
         <h3>Sign up</h3>
-        <Label htmlFor='email'>Email</Label>
-        <input name='email' value={email} onChange={handleEmail} />
+        <Label style={{ marginTop: '16px' }} htmlFor='email'>
+          Email
+        </Label>
+        <Input name='email' value={email} onChange={handleEmail} />
         <Label htmlFor='password'>Password</Label>
-        <input
+        <Input
           name='password'
           type='password'
           value={password}
@@ -30,6 +34,10 @@ export const Signup: React.FC = () => {
           Sign up
         </Button>
       </FormWrapper>
+      <p>
+        Already have an account?{' '}
+        <Signin onClick={() => navigate('/')}>Sign in</Signin>
+      </p>
     </Wrapper>
   );
 };
@@ -38,6 +46,7 @@ const Wrapper = styled.div`
   background-color: rgba(255, 239, 16, 0.1);
   height: 100vh;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 `;
@@ -51,12 +60,22 @@ const FormWrapper = styled.div`
   padding: 32px;
   display: flex;
   flex-direction: column;
+  align-items: center;
 `;
 
 const Label = styled.label`
   color: #adadad;
   font-size: 0.8rem;
   font-weight: 700;
+`;
+const Input = styled.input`
+  background-color: #f1f1f1;
+  border-radius: 4px;
+  padding: 8px;
+  border: 1px solid #f1f1f1;
+  margin-top: 8px;
+  margin-bottom: 16px;
+  width: 300px;
 `;
 
 const Button = styled.button`
@@ -68,9 +87,18 @@ const Button = styled.button`
   font-weight: 600;
   border-radius: 8px;
   border: none;
+  margin-top: 32px;
   &:hover {
     cursor: pointer;
     opacity: 0.8;
     transition: 0.3s;
+  }
+`;
+
+const Signin = styled.span`
+  font-weight: 700;
+  text-decoration: underline;
+  &:hover {
+    cursor: pointer;
   }
 `;

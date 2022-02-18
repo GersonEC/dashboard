@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Products } from './pages/Products';
 import { Login } from './pages/Login';
 import { Dogs } from './pages/Dogs';
 import { Signup } from './pages/Signup';
+import { useDispatch } from 'react-redux';
+import { loggedIn } from './features/auth/authSlice';
+import FirebaseContext from './auth/firebaseContext';
 
 const Routing = () => {
   return (
@@ -19,6 +22,20 @@ const Routing = () => {
 };
 
 function App() {
+  const dispatch = useDispatch();
+  const firebase = useContext(FirebaseContext);
+
+  useEffect(() => {
+    const checkLoggedIn = async () => {
+      await firebase?.monitorAuthState();
+      const user = firebase?.getUser();
+      if (user) {
+        dispatch(loggedIn(user?.email!));
+      }
+    };
+    checkLoggedIn();
+  }, []);
+
   return <Routing />;
 }
 

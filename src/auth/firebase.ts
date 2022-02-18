@@ -3,8 +3,9 @@ import {
   getAuth,
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
-  onAuthStateChanged,
   signOut,
+  onAuthStateChanged,
+  User,
 } from 'firebase/auth';
 
 const firebaseConfig = {
@@ -18,10 +19,12 @@ const firebaseConfig = {
 
 class Firebase {
   private auth;
+  private user: User | null;
 
   constructor() {
     const firebaseApp = initializeApp(firebaseConfig);
     this.auth = getAuth(firebaseApp);
+    this.user = null;
   }
 
   createUser = async (email: string, password: string) => {
@@ -39,26 +42,31 @@ class Firebase {
 
   loginUser = async (email: string, password: string) => {
     try {
-      debugger;
       const user = await signInWithEmailAndPassword(this.auth, email, password);
-      console.log({ user });
       return user;
     } catch (error) {
       console.log(error);
     }
   };
 
-  signOut = async () => await signOut(this.auth);
+  signOut = async () => {
+    await signOut(this.auth);
+  };
 
   monitorAuthState = async () => {
     onAuthStateChanged(this.auth, (user) => {
       if (user) {
-        console.log({ user });
-        //showApp
-      } else {
-        // not logged in
+        this.setUser(user);
       }
     });
+  };
+
+  setUser = (user: User) => {
+    this.user = user;
+  };
+
+  getUser = () => {
+    return this.user;
   };
 }
 

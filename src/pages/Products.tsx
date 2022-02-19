@@ -6,6 +6,7 @@ import { RootState } from '../app/store';
 import FirebaseContext from '../auth/firebaseContext';
 import { DashboardLayout } from '../components/DashboardLayout';
 import { ProductPreview } from '../components/ProductPreview';
+import { loggedIn } from '../features/auth/authSlice';
 import { fetchProductsAsync } from '../features/products/productsSlice';
 import { notify } from '../utils/notification';
 

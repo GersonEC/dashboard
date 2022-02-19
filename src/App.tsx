@@ -27,6 +27,7 @@ function App() {
 
   useEffect(() => {
     const checkLoggedIn = async () => {
+      debugger;
       await firebase?.monitorAuthState();
       const user = firebase?.getUser();
       if (user) {

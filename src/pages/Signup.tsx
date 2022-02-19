@@ -1,5 +1,6 @@
 import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
 import styled from 'styled-components';
 import FirebaseContext from '../auth/firebaseContext';
 import { notify } from '../utils/notification';
@@ -27,6 +28,7 @@ export const Signup: React.FC = () => {
       }
     }
   };
+
   return (
     <Wrapper>
       <FormWrapper>
@@ -48,6 +50,7 @@ export const Signup: React.FC = () => {
         Already have an account?{' '}
         <Signin onClick={() => navigate('/')}>Sign in</Signin>
       </p>
+      <ToastContainer />
     </Wrapper>
   );
 };

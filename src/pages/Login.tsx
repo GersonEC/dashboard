@@ -21,7 +21,7 @@ export const Login: React.FC = () => {
     if (auth.logged) {
       navigate('/products');
     }
-  }, [auth]);
+  }, []);
 
   const handleEmail = (e: React.ChangeEvent<HTMLInputElement>) =>
     setEmail(e.target.value);
@@ -34,9 +34,10 @@ export const Login: React.FC = () => {
       const user = await firebase.loginUser(email, password);
       if (user) {
         dispatch(loggedIn(user.user.email!));
-        navigate('/products');
+        notify('Login success', 'success');
+        setTimeout(() => navigate('/products'), 2000);
       } else {
-        notify('Ops: Something went wrong with the login', 'error');
+        notify('Ops: Login error', 'error');
       }
     }
   };

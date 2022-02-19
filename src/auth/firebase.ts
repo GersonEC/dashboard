@@ -56,17 +56,9 @@ class Firebase {
   monitorAuthState = async () => {
     onAuthStateChanged(this.auth, (user) => {
       if (user) {
-        this.setUser(user);
+        this.user = user;
       }
     });
-  };
-
-  setUser = (user: User) => {
-    this.user = user;
-  };
-
-  getUser = () => {
-    return this.user;
   };
 }
 

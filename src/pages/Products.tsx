@@ -1,12 +1,13 @@
 import { useContext, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
 import { RootState } from '../app/store';
 import FirebaseContext from '../auth/firebaseContext';
 import { DashboardLayout } from '../components/DashboardLayout';
 import { ProductPreview } from '../components/ProductPreview';
-import { loggedIn } from '../features/auth/authSlice';
 import { fetchProductsAsync } from '../features/products/productsSlice';
+import { notify } from '../utils/notification';
 
 export const Products: React.FC = () => {
   const dispatch = useDispatch();
@@ -18,9 +19,8 @@ export const Products: React.FC = () => {
   const auth = useSelector((state: RootState) => state.auth);
   const navigate = useNavigate();
 
-  useEffect(() => {
+  /*useEffect(() => {
     const checkLoggedIn = async () => {
-      debugger;
       await firebase?.monitorAuthState();
       const user = firebase?.getUser();
       if (user) {
@@ -30,10 +30,15 @@ export const Products: React.FC = () => {
       }
     };
     checkLoggedIn();
-  }, []);
+  }, []);*/
 
   useEffect(() => {
-    dispatch(fetchProductsAsync());
+    if (auth.logged) {
+      dispatch(fetchProductsAsync());
+    } else {
+      notify('Area restricted', 'warning');
+      setTimeout(() => navigate('/'), 2000);
+    }
   }, [dispatch]);
 
   if (status === 'loading')
@@ -49,6 +54,7 @@ export const Products: React.FC = () => {
         productList.map((item) => (
           <ProductPreview key={item.id} product={item} />
         ))}
+      <ToastContainer />
     </DashboardLayout>
   );
 };

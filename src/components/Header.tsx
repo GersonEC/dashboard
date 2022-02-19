@@ -1,21 +1,25 @@
 import { useContext } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { RootState } from '../app/store';
 import FirebaseContext from '../auth/firebaseContext';
+import { loggedOut } from '../features/auth/authSlice';
 
 export const Header: React.FC = () => {
   const firebase = useContext(FirebaseContext);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const auth = useSelector((state: RootState) => state.auth);
 
   const handleSignOut = () => {
     if (firebase) {
+      dispatch(loggedOut());
       firebase!.signOut();
       navigate('/');
     }
   };
+
   return (
     <Wrapper>
       <Title>Dashboard</Title>

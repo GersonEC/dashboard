@@ -1,10 +1,13 @@
 import { useContext, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import styled from 'styled-components';
 import { RootState } from '../app/store';
 import FirebaseContext from '../auth/firebaseContext';
 import { loggedIn } from '../features/auth/authSlice';
+import { notify } from '../utils/notification';
 
 export const Login: React.FC = () => {
   const firebase = useContext(FirebaseContext);
@@ -19,6 +22,7 @@ export const Login: React.FC = () => {
       navigate('/products');
     }
   }, [auth]);
+
   const handleEmail = (e: React.ChangeEvent<HTMLInputElement>) =>
     setEmail(e.target.value);
 
@@ -31,11 +35,12 @@ export const Login: React.FC = () => {
       if (user) {
         dispatch(loggedIn(user.user.email!));
         navigate('/products');
+      } else {
+        notify('Ops: Something went wrong with the login', 'error');
       }
     }
   };
 
-  console.log('Logged?: ', auth.logged);
   return (
     <Wrapper>
       <FormWrapper>
@@ -57,6 +62,7 @@ export const Login: React.FC = () => {
         Don't have an account?{' '}
         <Signup onClick={() => navigate('/signup')}>Sign up</Signup>
       </p>
+      <ToastContainer />
     </Wrapper>
   );
 };

@@ -2,6 +2,7 @@ import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import FirebaseContext from '../auth/firebaseContext';
+import { notify } from '../utils/notification';
 
 export const Signup: React.FC = () => {
   const firebase = useContext(FirebaseContext);
@@ -15,6 +16,17 @@ export const Signup: React.FC = () => {
   const handlePassword = (e: React.ChangeEvent<HTMLInputElement>) =>
     setPassword(e.target.value);
 
+  const handleSignUp = async () => {
+    if (firebase) {
+      const user = await firebase!.createUser(email, password);
+      if (user) {
+        notify('User created', 'success');
+        setTimeout(() => navigate('/'), 2000);
+      } else {
+        notify('Ops: Something went wrong with the Sign up', 'error');
+      }
+    }
+  };
   return (
     <Wrapper>
       <FormWrapper>
@@ -30,9 +42,7 @@ export const Signup: React.FC = () => {
           value={password}
           onChange={handlePassword}
         />
-        <Button onClick={() => firebase!.createUser(email, password)}>
-          Sign up
-        </Button>
+        <Button onClick={handleSignUp}>Sign up</Button>
       </FormWrapper>
       <p>
         Already have an account?{' '}
